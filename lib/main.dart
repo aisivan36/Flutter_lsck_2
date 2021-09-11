@@ -1,11 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lsck/codelabs/build_ui.dart';
-// import 'package:lsck/cookbook/opacity_animation.dart';
-// import 'package:lsck/max_courses/home.dart';
+
+import 'cookbook/ch5/stopwatch/mainstopwatch.dart';
 
 void main() {
-  runApp(BuildUi());
+  runApp(MainStopWatch());
 }
 
 // class MyApp extends StatelessWidget {
