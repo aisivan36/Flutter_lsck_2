@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lsck/cookbook/ch5/stopwatch/stopwatchapp.dart';
+import 'stopwatchapp.dart';
 
 class MainStopWatch extends StatelessWidget {
   const MainStopWatch({Key? key}) : super(key: key);
