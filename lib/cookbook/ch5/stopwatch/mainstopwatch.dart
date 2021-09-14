@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'stopwatchapp.dart';
+import 'package:lsck/cookbook/ch5/stopwatch/login_screen.dart';
 
 class MainStopWatch extends StatelessWidget {
   const MainStopWatch({Key? key}) : super(key: key);
@@ -7,7 +7,7 @@ class MainStopWatch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: StopWatchApp(),
+      home: LoginScreen(),
     );
   }
 }
