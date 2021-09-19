@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lsck/cookbook/ch5/stopwatch/stopwatchapp.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  static const route = '/login';
+
+  const LoginScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -16,42 +21,47 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _validate() {
     final form = _formKey.currentState;
-    if (form != null) {
-      if (!form.validate()) {
-        return;
-      }
+    if (!form!.validate()) {
+      return;
     }
+    // if (form != null) {
+    // }
 
-    setState(() {
-      loggedin = true;
-      name = _nameController.text;
-    });
+    final name = _nameController.text;
+    // final email = _emailController.text;
+
+    Navigator.of(context)
+        .pushReplacementNamed(StopWatchApp.route, arguments: name);
+    // setState(() {
+    //   loggedin = true;
+    //   name = _nameController.text;
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: const Text('Login'),
       ),
       body: Center(
-        child: loggedin ? _buildSuccess() : _buildLoginForm(),
+        child: _buildLoginForm(),
       ),
     );
   }
 
-  Widget _buildSuccess() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          Icons.check,
-          color: Colors.orangeAccent,
-        ),
-        Text('Hi $name')
-      ],
-    );
-  }
+  // Widget _buildSuccess() {
+  //   return Column(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       Icon(
+  //         Icons.check,
+  //         color: Colors.orangeAccent,
+  //       ),
+  //       Text('Hi $name')
+  //     ],
+  //   );
+  // }
 
   Widget _buildLoginForm() {
     return Form(
@@ -63,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             TextFormField(
               controller: _nameController,
-              decoration: InputDecoration(labelText: 'Runner'),
+              decoration: const InputDecoration(labelText: 'Runner'),
               validator: (text) {
                 if (text != null) {
                   // if (text.isEmpty) {
@@ -77,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             TextFormField(
               controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(labelText: 'Email'),
               keyboardType: TextInputType.emailAddress,
               validator: (text) {
                 //Check if it's not null
@@ -85,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (text.isEmpty) {
                     return 'Enter the runner\'s email';
                   }
+                  // ignore: unnecessary_string_escapes
                   final regex = RegExp('[^@]+@[^\.]+\..+');
                   if (!regex.hasMatch(text)) {
                     return 'Enter a valid email';
@@ -94,10 +105,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 return null;
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            ElevatedButton(onPressed: _validate, child: Text('Continue')),
+            ElevatedButton(onPressed: _validate, child: const Text('Continue')),
           ],
         ),
       ),

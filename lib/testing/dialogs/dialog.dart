@@ -11,7 +11,7 @@ class MainDialog extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeDialog(),
+      home: const HomeDialog(),
     );
   }
 }
@@ -23,7 +23,7 @@ class HomeDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dialogs'),
+        title: const Text('Dialogs'),
       ),
       body: Center(
         child: Column(
@@ -57,17 +57,17 @@ class HomeDialog extends StatelessWidget {
     showDialog(
         context: context,
         builder: (_) => BasicDialogAlert(
-              title: Text('Discard draft?'),
-              content: Text('Action cannot be undone'),
+              title: const Text('Discard draft?'),
+              content: const Text('Action cannot be undone'),
               actions: [
                 BasicDialogAction(
-                  title: Text('Cancel'),
+                  title: const Text('Cancel'),
                   onPressed: () {
                     Navigator.pop(context);
                   },
                 ),
                 BasicDialogAction(
-                  title: Text('Discard'),
+                  title: const Text('Discard'),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -80,12 +80,12 @@ class HomeDialog extends StatelessWidget {
     showPlatformDialog(
       context: context,
       builder: (_) => BasicDialogAlert(
-        title: Text('Current Location Not Available'),
-        content:
-            Text('Your current location can\'t be determined at this time'),
+        title: const Text('Current Location Not Available'),
+        content: const Text(
+            'Your current location can\'t be determined at this time'),
         actions: [
           BasicDialogAction(
-            title: Text('Okay'),
+            title: const Text('Okay'),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -99,10 +99,10 @@ class HomeDialog extends StatelessWidget {
     showPlatformDialog(
       context: context,
       builder: (_) => BasicDialogAlert(
-        title: Text('Select account'),
+        title: const Text('Select account'),
         content: Expanded(
           flex: 3,
-          child: Container(
+          child: SizedBox(
             height: 200,
             child: ListView(
               children: [
@@ -110,17 +110,17 @@ class HomeDialog extends StatelessWidget {
                 _buildListSampleItem('Second one'),
                 _buildListSampleItem('Third one'),
                 _buildListSampleItem('Forth'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
+                // Text('data'),
+                // Text('data'),
+                // Text('data'),
+                // Text('data'),
               ],
             ),
           ),
         ),
         actions: [
           BasicDialogAction(
-            title: Text('Cancel'),
+            title: const Text('Cancel'),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -133,16 +133,16 @@ class HomeDialog extends StatelessWidget {
   Widget _buildListSampleItem(String title) {
     return Container(
       height: 30,
-      margin: EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16),
       child: Row(
         children: [
-          CircleAvatar(),
-          SizedBox(
+          const CircleAvatar(),
+          const SizedBox(
             width: 8,
           ),
           Text(
             title,
-            style: TextStyle(fontSize: 12),
+            style: const TextStyle(fontSize: 12),
           )
         ],
       ),

@@ -1,9 +1,16 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:lsck/cookbook/ch5/stopwatch/platform_alert.dart';
+
 // import 'package:flutter_dialogs/flutter_dialogs.dart';
+late Timer timer;
 
 class StopWatchApp extends StatefulWidget {
-  const StopWatchApp({Key? key}) : super(key: key);
+  static const route = '/stopwatch';
+
+  final String? name;
+  final String? email;
+  const StopWatchApp({Key? key, this.email, this.name}) : super(key: key);
 
   @override
   State<StopWatchApp> createState() => _StopWatchAppState();
@@ -12,7 +19,6 @@ class StopWatchApp extends StatefulWidget {
 class _StopWatchAppState extends State<StopWatchApp> {
   int milliseconds = 0;
   // late Timer timer;
-  late Timer timer;
   final laps = <int>[];
   bool isTicking = false;
   final scrollController = ScrollController();
@@ -24,18 +30,26 @@ class _StopWatchAppState extends State<StopWatchApp> {
       isTicking = false;
     });
 
+    final totalRuntime =
+        laps.fold(milliseconds, (total, lap) => total ?? 0 + lap);
+    final alert = PlatformAlert(
+        title: 'Run Completed',
+        message: 'Total Run Time is ${_secondsText(totalRuntime as int)}');
+    alert.show(context);
+
     // final totalRuntime =
     //     laps.fold(milliseconds, (previousValue, element) => null);
     // final alert = PlatformAlert
     // final scafoldState = GlobalKey<ScaffoldState>();
 
-    // final controller =  showBottomSheet(context: context, builder: _buildRunCompleteSheet);
+    final controller =
+        showBottomSheet(context: context, builder: _buildRunCompleteSheet);
     // scafoldState.currentState!
     //     .showBottomSheet((contexts) => _buildRunCompleteSheet(context));
 
-    // Future.delayed(Duration(seconds: 5)).then(
-    //   (_) => controller.close(),
-    // );
+    Future.delayed(const Duration(seconds: 15)).then(
+      (_) => controller.close(),
+    );
   }
 
   // _showAlert(BuildContext context) {
@@ -59,7 +73,7 @@ class _StopWatchAppState extends State<StopWatchApp> {
 
   void _lap() {
     scrollController.animateTo(itemHeight * laps.length,
-        duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+        duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
 
     setState(() {
       laps.add(milliseconds);
@@ -80,7 +94,7 @@ class _StopWatchAppState extends State<StopWatchApp> {
   }
 
   void _startTimer() {
-    timer = Timer.periodic(Duration(milliseconds: 500), _onTick);
+    timer = Timer.periodic(const Duration(milliseconds: 500), _onTick);
 
     setState(() {
       laps.clear();
@@ -91,14 +105,14 @@ class _StopWatchAppState extends State<StopWatchApp> {
   Widget _buildLapDisplay() {
     return Scrollbar(
       child: ListView.builder(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         controller: scrollController,
         itemExtent: itemHeight,
         itemCount: laps.length,
         itemBuilder: (context, index) {
           final milliseconds = laps[index];
           return ListTile(
-            contentPadding: EdgeInsets.symmetric(horizontal: 50),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 50),
             trailing: Text(_secondsText(milliseconds)),
             title: Text('Lap ${index + 1}'),
           );
@@ -109,9 +123,10 @@ class _StopWatchAppState extends State<StopWatchApp> {
 
   @override
   Widget build(BuildContext context) {
+    String name = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold(
       appBar: AppBar(
-        title: Text('StopWatchApp'),
+        title: Text(name),
       ),
       body: Column(
         children: [
@@ -141,7 +156,7 @@ class _StopWatchAppState extends State<StopWatchApp> {
             _secondsText(milliseconds),
             style: Theme.of(context).textTheme.headline5,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _buildControls(context),
         ],
       ),
@@ -155,76 +170,79 @@ class _StopWatchAppState extends State<StopWatchApp> {
         ElevatedButton(
           /// If `isTicking` is `true` then the button disabled otherwise it enabled
           onPressed: isTicking ? null : _startTimer,
-          child: Text('Start'),
+          child: const Text('Start'),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white)),
         ),
-        SizedBox(width: 20),
+        const SizedBox(width: 20),
         ElevatedButton(
           onPressed: isTicking ? _lap : null,
-          child: Text('Lap'),
+          child: const Text('Lap'),
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(Colors.yellow)),
         ),
-        SizedBox(width: 20),
-        TextButton(
-          /// `isTicking` is  `true` then the button is enabled otherwise it disabled
-          onPressed:
-              // isTicking
-              //     ?
-              () {
-            _stopTimer(context);
-          },
-          // : null,
-          child: Text('Stop'),
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white)),
+        const SizedBox(width: 20),
+        Builder(
+          builder: (context) => TextButton(
+            /// `isTicking` is  `true` then the button is enabled otherwise it disabled
+            onPressed: isTicking
+                ? () {
+                    _stopTimer(context);
+                  }
+                : null,
+            child: const Text('Stop'),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                foregroundColor:
+                    MaterialStateProperty.all<Color>(Colors.white)),
+          ),
         ),
       ],
     );
   }
 
+  @override
   void dispose() {
     timer.cancel();
     super.dispose();
   }
 
-  // Widget _buildRunCompleteSheet(BuildContext context) {
-  //   // final totalRuntime =
-  //   //     laps.fold(milliseconds, (int total, int lap) => total + lap);
-  //   // String? previousValue;
-  //   final totalRuntime =
-  //       laps.fold(milliseconds, (previousValue, element) => element);
-  //   print(totalRuntime);
-  //   final textTheme = Theme.of(context).textTheme;
+  Widget _buildRunCompleteSheet(BuildContext context) {
+    // final totalRuntime =
+    //     laps.fold(milliseconds, (int total, int lap) => total + lap);
+    // String? previousValue;
+    final totalRuntime = laps.fold(milliseconds,
+        (previousValue, element) => previousValue ??= 1 + element);
+    // ignore: avoid_print
+    print(totalRuntime);
+    final textTheme = Theme.of(context).textTheme;
 
-  //   return MaterialApp(
-  //     home: Scaffold(
-  //       appBar: AppBar(
-  //         title: Text("Dialog Alert!"),
-  //       ),
-  //       body: SafeArea(
-  //         child: Container(
-  //           color: Theme.of(context).cardColor,
-  //           width: double.infinity,
-  //           child: Padding(
-  //             padding: EdgeInsets.symmetric(vertical: 30.0),
-  //             child: Column(
-  //               mainAxisSize: MainAxisSize.min,
-  //               children: [
-  //                 Text(
-  //                   'Run Finished!',
-  //                   style: textTheme.headline6,
-  //                 ),
-  //                 Text('Total Run Time is ${_secondsText(totalRuntime)}')
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("Dialog Alert!"),
+        ),
+        body: SafeArea(
+          child: Container(
+            color: Theme.of(context).cardColor,
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Run Finished!',
+                    style: textTheme.headline6,
+                  ),
+                  Text('Total Run Time is ${_secondsText(totalRuntime as int)}')
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

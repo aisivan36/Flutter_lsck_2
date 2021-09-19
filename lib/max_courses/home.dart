@@ -7,16 +7,16 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Just an app'),
+        title: const Text('Just an app'),
       ),
       body: Column(
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text('Elevated Button'),
-          ElevatedButton(onPressed: null, child: Text('First')),
-          ElevatedButton(onPressed: () {}, child: Text('Second')),
-          ElevatedButton(onPressed: () {}, child: Text('Third')),
+          const ElevatedButton(onPressed: null, child: Text('First')),
+          ElevatedButton(onPressed: () {}, child: const Text('Second')),
+          ElevatedButton(onPressed: () {}, child: const Text('Third')),
         ],
       ),
     );

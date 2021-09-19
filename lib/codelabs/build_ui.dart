@@ -24,7 +24,7 @@ class BuildUi extends StatelessWidget {
       theme: defaultTargetPlatform == TargetPlatform.iOS
           ? kIOSTheme
           : kDefaultTheme,
-      home: ChatScreen(),
+      home: const ChatScreen(),
     );
 
     //  ChatScreen();
@@ -46,6 +46,7 @@ class ChatMessage extends StatelessWidget {
       sizeFactor:
           CurvedAnimation(parent: animationController, curve: Curves.easeOut),
       axisAlignment: 0.0,
+      // ignore: avoid_unnecessary_containers
       child: Container(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +63,7 @@ class ChatMessage extends StatelessWidget {
                 children: [
                   Text(_name, style: Theme.of(context).textTheme.headline4),
                   Container(
-                    margin: EdgeInsets.only(top: 5.0),
+                    margin: const EdgeInsets.only(top: 5.0),
                     child: Text(text),
                   )
                 ],
@@ -111,6 +112,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   }
 
   /// It's a good practice to dispose when using an animation to free up our resources when they are not in used
+  @override
   void dispose() {
     for (var message in _messages) {
       message.animationController.dispose();
@@ -122,7 +124,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('FriendlyChat'),
+        title: const Text('FriendlyChat'),
         elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
       ),
       body: Container(
@@ -130,13 +132,13 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
           children: [
             Flexible(
               child: ListView.builder(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 reverse: true,
                 itemBuilder: (_, int index) => _messages[index],
                 itemCount: _messages.length,
               ),
             ),
-            Divider(
+            const Divider(
               height: 1.0,
             ),
             Container(
@@ -160,7 +162,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     return IconTheme(
       data: IconThemeData(color: Theme.of(context).colorScheme.secondary),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 8.0),
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Row(
           children: [
             Flexible(
@@ -173,16 +175,16 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                 },
                 onSubmitted: _isComposing ? _handleSubmitted : null,
                 decoration:
-                    InputDecoration.collapsed(hintText: 'Send a message'),
+                    const InputDecoration.collapsed(hintText: 'Send a message'),
                 focusNode: _focusNode,
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 4.0),
+              margin: const EdgeInsets.symmetric(horizontal: 4.0),
               child: Container(
                 child: Theme.of(context).platform == TargetPlatform.iOS
                     ? CupertinoButton(
-                        child: Text('Send'),
+                        child: const Text('Send'),
                         onPressed: _isComposing
                             ? () => _handleSubmitted(_textController.text)
                             : null)

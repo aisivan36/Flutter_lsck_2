@@ -111,7 +111,7 @@ class TheFirst extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Flutter layout demo"),
+        title: const Text("Flutter layout demo"),
       ),
       body: Center(
         child: Container(
@@ -207,6 +207,7 @@ class TheFirst extends StatelessWidget {
 
   List<Container> _buildGridTileList(int count) => List.generate(
       count,
+      // ignore: avoid_unnecessary_containers
       (index) => Container(
             child: Image.asset('images/pic$index.png'),
           ));
