@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsck/cookbook/basic_state_management/plan_provider.dart';
 import 'package:lsck/cookbook/basic_state_management/views/plan_screen.dart';
 
 class MasterPlanApp extends StatelessWidget {
@@ -8,7 +9,7 @@ class MasterPlanApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.purple),
-      home: const PlanScreen(),
+      home: PlanProvider(child: const PlanScreen()),
     );
   }
 }
