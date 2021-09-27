@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lsck/cookbook/basic_state_management/main_state.dart';
+import 'package:lsck/cookbook/Futures/main_futures.dart';
 
 // import 'cookbook/ch5/stopwatch/mainstopwatch.dart';
 
 void main() {
-  runApp(const MasterPlanApp());
+  runApp(const MainFutures());
 }
 
 // class MyApp extends StatelessWidget {
