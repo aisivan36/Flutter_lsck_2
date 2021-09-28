@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "858810128527",
+    "project_id": "flutter-cookbook-71c37",
+    "storage_bucket": "flutter-cookbook-71c37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858810128527:android:06d703e9b7de4c1482b8fa",
+        "android_client_info": {
+          "package_name": "com.aisivan.lsck"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "858810128527-us4g5kmuvlsrs4h2aasje4og63q0phh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAualh4dnXtR0UIxceShORDjzDZrZnM5L0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "858810128527-us4g5kmuvlsrs4h2aasje4og63q0phh1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
