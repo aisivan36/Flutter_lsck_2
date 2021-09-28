@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'package:async/async.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:lsck/cookbook/Futures/geolocation.dart';
 
 class MainFutures extends StatelessWidget {
   const MainFutures({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class MainFutures extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity),
-      home: const FuturePage(),
+      home: const LocationScreen(),
     );
   }
 }
@@ -43,6 +45,34 @@ class _FuturePageState extends State<FuturePage> {
     completer!.complete(42);
   }
 
+  void returnFG() {
+    FutureGroup<int> futureGroup = FutureGroup<int>();
+    futureGroup.add(returnOneAsync());
+    futureGroup.add(returnTwoAsync());
+    futureGroup.add(returnThreeAsync());
+    futureGroup.close();
+    futureGroup.future.then((List<int> value) {
+      int total = 0;
+      for (var element in value) {
+        total += element;
+      }
+      setState(() {
+        result = total.toString();
+      });
+    });
+  }
+
+  /// Catch Error
+  catchErr(onError) {
+    setState(() {
+      result = onError;
+    });
+  }
+
+  Future returnError() {
+    throw ('Something terrible happened!');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +86,21 @@ class _FuturePageState extends State<FuturePage> {
             ElevatedButton(
               child: const Text('Go!'),
               onPressed: () {
-                count();
+                returnError()
+                    .then((value) {
+                      setState(() {
+                        result = 'Succed!';
+                      });
+                    })
+                    .catchError(catchErr)
+                    .whenComplete(() => print('Completed!'));
+                // returnFG();
+                // getNumber().then((value) {
+                //   setState(() {
+                //     result = value.toString();
+                //   });
+                // });
+                // count();
               },
             ),
             const Spacer(),
