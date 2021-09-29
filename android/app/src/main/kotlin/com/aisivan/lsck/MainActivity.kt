@@ -1,4 +1,4 @@
-package com.example.lsck
+package com.aisivan.lsck
 
 import io.flutter.embedding.android.FlutterActivity
 

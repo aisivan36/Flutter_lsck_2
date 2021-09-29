@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.lsck">
+    package="com.aisivan.lsck">
    <application
+        android:usesCleartextTraffic="true"
         android:label="lsck"
         android:icon="@mipmap/ic_launcher">
         <activity

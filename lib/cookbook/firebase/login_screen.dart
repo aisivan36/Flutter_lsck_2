@@ -1,22 +1,67 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lsck/cookbook/firebase/shared/firebase_authentication.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreenFirebase extends StatefulWidget {
+  const LoginScreenFirebase({Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreenFirebase> {
   String _message = '';
-  bool _isLogin = true;
+  bool _isLogin = false;
   final TextEditingController txtUserName = TextEditingController();
   final TextEditingController txtPassword = TextEditingController();
 
+  FirebaseAuthentication? auth;
+
+  @override
+  void initState() {
+    Firebase.initializeApp().whenComplete(() {
+      auth = FirebaseAuthentication();
+      setState(() {});
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login Screen'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              auth!.logout().then((value) {
+                if (value) {
+                  setState(() {
+                    _message = 'User Logged Out';
+                  });
+                } else {
+                  _message = 'Unable to Log Out';
+                }
+              });
+            },
+          )
+        ],
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(36),
+        child: ListView(
+          children: [
+            userInput(),
+            passwordInput(),
+            btnMain(),
+            btnSecondary(),
+            txtMessage(),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget userInput() {
@@ -75,7 +120,38 @@ class _LoginScreenState extends State<LoginScreen> {
               color: Theme.of(context).primaryColorLight,
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            String userId = '';
+            if (_isLogin) {
+              auth!.login(txtUserName.text, txtPassword.text).then((value) {
+                if (value == null) {
+                  setState(() {
+                    _message = 'Login Error';
+                  });
+                } else {
+                  userId = value;
+                  setState(() {
+                    _message = 'User $userId succesfully logged in';
+                  });
+                }
+              });
+            } else {
+              auth!
+                  .createUser(txtUserName.text, txtPassword.text)
+                  .then((value) {
+                if (value == null) {
+                  setState(() {
+                    _message = 'Registration Error';
+                  });
+                } else {
+                  userId = value;
+                  setState(() {
+                    _message = 'User $userId successfully signed in';
+                  });
+                }
+              });
+            }
+          },
         ),
       ),
     );

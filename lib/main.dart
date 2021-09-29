@@ -1,11 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lsck/cookbook/Futures/main_futures.dart';
+import 'package:lsck/codelabs/initial_firebase/main_firebase_google.dart';
 
 // import 'cookbook/ch5/stopwatch/mainstopwatch.dart';
 
-void main() {
-  runApp(const MainFutures());
+void main() async {
+  /// Firebase initialization
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
+
+  runApp(const MainFirebaseGoogle());
 }
 
 // class MyApp extends StatelessWidget {
