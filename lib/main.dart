@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lsck/codelabs/initial_firebase/main_firebase_google.dart';
+import 'package:provider/provider.dart';
 
 // import 'cookbook/ch5/stopwatch/mainstopwatch.dart';
 
@@ -9,7 +10,11 @@ void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
 
-  runApp(const MainFirebaseGoogle());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ApplicationState(),
+    ),
+  );
 }
 
 // class MyApp extends StatelessWidget {
