@@ -32,6 +32,17 @@ class MainMi extends StatelessWidget {
                     letterSpacing: 2.5,
                     fontWeight: FontWeight.bold),
               ),
+              Container(
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.add_shopping_cart,
+                      size: 70.0,
+                      color: Colors.teal.shade200,
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
