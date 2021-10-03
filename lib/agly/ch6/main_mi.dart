@@ -10,6 +10,7 @@ class MainMi extends StatelessWidget {
         backgroundColor: Colors.teal,
         body: SafeArea(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const CircleAvatar(
                 radius: 50.0,
@@ -32,25 +33,58 @@ class MainMi extends StatelessWidget {
                     letterSpacing: 2.5,
                     fontWeight: FontWeight.bold),
               ),
-              Container(
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.phone,
-                      color: Colors.white,
+              SizedBox(
+                height: 20.0,
+                width: 113.0,
+                child: Divider(
+                  color: Colors.teal.shade700,
+                ),
+              ),
+              Card(
+                color: Colors.white,
+                margin: const EdgeInsets.symmetric(
+                  vertical: 10.0,
+                  horizontal: 25.0,
+                ),
+                child: Padding(
+                    padding: const EdgeInsets.all(9.0),
+                    child: ListTile(
+                      leading: const Icon(
+                        Icons.phone,
+                        color: Colors.teal,
+                      ),
+                      title: Text(
+                        '+1045045042',
+                        style: TextStyle(
+                          color: Colors.teal.shade900,
+                          fontFamily: 'Source Sans Pro',
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    )),
+              ),
+              Card(
+                color: Colors.white,
+                margin: const EdgeInsets.symmetric(
+                  vertical: 10.0,
+                  horizontal: 25.0,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(9.0),
+                  child: ListTile(
+                    leading: const Icon(
+                      Icons.email,
+                      color: Colors.teal,
                     ),
-                    const SizedBox(
-                      width: 9.0,
-                    ),
-                    Text(
-                      '+1045045042',
+                    title: Text(
+                      'aisivan36@gmail.com',
                       style: TextStyle(
-                        color: Colors.teal.shade200,
+                        color: Colors.teal.shade900,
                         fontFamily: 'Source Sans Pro',
                         fontSize: 20.0,
                       ),
-                    )
-                  ],
+                    ),
+                  ),
                 ),
               ),
             ],
