@@ -35,10 +35,20 @@ class MainMi extends StatelessWidget {
               Container(
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.add_shopping_cart,
-                      size: 70.0,
-                      color: Colors.teal.shade200,
+                    const Icon(
+                      Icons.phone,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(
+                      width: 9.0,
+                    ),
+                    Text(
+                      '+1045045042',
+                      style: TextStyle(
+                        color: Colors.teal.shade200,
+                        fontFamily: 'Source Sans Pro',
+                        fontSize: 20.0,
+                      ),
                     )
                   ],
                 ),
