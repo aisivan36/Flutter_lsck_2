@@ -53,6 +53,6 @@ class PlanController {
     PlanProvider? provider =
         context.dependOnInheritedWidgetOfExactType<PlanProvider>();
 
-    return provider._controller;
+    return provider!._controller;
   }
 }

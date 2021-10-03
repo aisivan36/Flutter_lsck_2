@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lsck/codelabs/initial_firebase/main_firebase_google.dart';
-import 'package:provider/provider.dart';
+import 'package:lsck/agly/ch6/main_mi.dart';
 
 // import 'cookbook/ch5/stopwatch/mainstopwatch.dart';
 
@@ -9,12 +8,13 @@ void main() async {
   /// Firebase initialization
   // WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
+  // runApp(
+  //   ChangeNotifierProvider(
+  //     create: (context) => ApplicationState(),
+  //   ),
+  // );
 
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => ApplicationState(),
-    ),
-  );
+  runApp(const MainMi());
 }
 
 // class MyApp extends StatelessWidget {
