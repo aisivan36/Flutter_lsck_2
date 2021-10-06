@@ -78,6 +78,10 @@ flutter:
     - family: Source Sans Pro
       fonts:
         - asset: assets/fonts/SourceSansPro-Regular.ttf
+    - family: Spartan MB
+      fonts:
+        - asset: assets/fonts/SpartanMB-Black.otf
+          weight: 900
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
